@@ -1,7 +1,8 @@
+import os
 import argparse
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
 from utils import get_device, vectorize_file
+from model_loader_factory import get_model_loader
 
 def main():
     parser = argparse.ArgumentParser(description='FreePromptPilot with Huggingface module')
