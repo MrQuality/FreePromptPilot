@@ -162,7 +162,7 @@ This project is licensed under the Apache License. See the [LICENSE](https://git
 
 For any questions or feedback, please reach out to:
 
-- **Email**: mrnirrozen@gmail.com
+- **Email**: mrnirrozen+fpp@gmail.com
 - **GitHub**: [MrQuality](https://github.com/MrQuality)
 
 Thank you for using FreePromptPilot! We hope it enhances your text processing and AI-driven development workflow.
