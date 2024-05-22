@@ -10,16 +10,17 @@ def main():
     parser.add_argument('--file', type=str, help='Optional file input for RAG')
     parser.add_argument('--use-gpu', action='store_true', help='Use GPU if available')
     parser.add_argument('--local', action='store_true', help='Use local module if available')
-    parser.add_argument('--cache-dir', type=str, default=None, help='Directory to cache the model')
-    parser.add_argument('--model-format', type=str, default='transformers', choices=['transformers', 'ggml'], help='Model format to load')
+    parser.add_argument('--cache-dir', type=str, default=os.getenv('TRANSFORMERS_CACHE', os.path.expanduser('~/.cache/huggingface/transformers')), help='Directory to cache the model')
+    parser.add_argument('--model-path', type=str, default=None, help='Path to the model file')
 
     args = parser.parse_args()
     
     device = get_device(args.use_gpu)
-    
-    model_name = "gradientai/Llama-3-8B-Instruct-Gradient-4194k"
+    if not args.model_path:
+        model_name = "gradientai/Llama-3-8B-Instruct-Gradient-4194k"
+        args.model_path = os.path.join(args.cache_dir, model_name.replace('/', '_'))
 
-    model_loader = get_model_loader(args.model_format)
+    model_loader = get_model_loader(args.model_path)
     
     if args.local:
         try:
@@ -27,8 +28,10 @@ def main():
             tokenizer = model_loader.load_tokenizer(model_name, args.cache_dir)
         except:
             print(f"Local model not found or unsupported format. Downloading {model_name}...")
-            model = model_loader.load_model(model_name, args.cache_dir)
-            tokenizer = model_loader.load_tokenizer(model_name, args.cache_dir)
+            model = AutoModelForCausalLM.from_pretrained(model_name, cache_dir=args.cache_dir)
+            tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=args.cache_dir)
+            model.save_pretrained(args.model_path)
+            tokenizer.save_pretrained(args.model_path)
     else:
         model = model_loader.load_model(model_name, args.cache_dir)
         tokenizer = model_loader.load_tokenizer(model_name, args.cache_dir)
