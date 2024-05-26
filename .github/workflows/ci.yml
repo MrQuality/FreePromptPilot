@@ -1,0 +1,94 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install development dependencies
+        run: pip install flake8 mypy black semgrep safety reviewdog
+
+      - name: Lint code with flake8
+        run: |
+          flake8 .
+        continue-on-error: true
+
+      - name: Type check with mypy
+        run: |
+          mypy .
+        continue-on-error: true
+
+      - name: Format code with black
+        run: |
+          black --check .
+        continue-on-error: true
+
+      - name: Security scan with semgrep
+        run: |
+          semgrep --config p/ci
+        continue-on-error: true
+
+      - name: Security scan with safety
+        run: |
+          safety check
+        continue-on-error: true
+
+      - name: Reviewdog - Lint
+        uses: reviewdog/action-flake8@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-check
+          level: error
+
+      - name: Reviewdog - Type check
+        uses: reviewdog/action-mypy@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-check
+          level: error
+
+      - name: Reviewdog - Format check
+        uses: reviewdog/action-black@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-check
+          level: error
+
+      - name: Reviewdog - Security scan with semgrep
+        uses: reviewdog/action-semgrep@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-check
+          level: error
+
+      - name: Reviewdog - Security scan with safety
+        uses: reviewdog/action-safety@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-check
+          level: error
