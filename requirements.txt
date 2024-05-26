@@ -4,4 +4,10 @@ torch
 sentence-transformers
 numpy
 scipy
+flake8
+mypy
+black
+semgrep
+safety
+reviewdog
 
