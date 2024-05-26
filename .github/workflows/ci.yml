@@ -39,7 +39,7 @@ jobs:
           flake8 . > flake8_report.txt || true
 
       - name: Reviewdog - Flake8
-        uses: reviewdog/reviewdog@v0.17.4
+        uses: reviewdog/reviewdog@latest
         with:
           name: flake8
           reporter: github-pr-check
@@ -57,7 +57,7 @@ jobs:
           mypy . > mypy_report.txt || true
 
       - name: Reviewdog - Mypy
-        uses: reviewdog/reviewdog@v0.17.4
+        uses: reviewdog/reviewdog@latest
         with:
           name: mypy
           reporter: github-pr-check
@@ -75,7 +75,7 @@ jobs:
           black --check . > black_report.txt || true
 
       - name: Reviewdog - Black
-        uses: reviewdog/reviewdog@v0.17.4
+        uses: reviewdog/reviewdog@latest
         with:
           name: black
           reporter: github-pr-check
@@ -93,7 +93,7 @@ jobs:
           semgrep --config p/ci > semgrep_report.txt || true
 
       - name: Reviewdog - Semgrep
-        uses: reviewdog/reviewdog@v0.17.4
+        uses: reviewdog/reviewdog@latest
         with:
           name: semgrep
           reporter: github-pr-check
@@ -111,7 +111,7 @@ jobs:
           safety check > safety_report.txt || true
 
       - name: Reviewdog - Safety
-        uses: reviewdog/reviewdog@v0.17.4
+        uses: reviewdog/reviewdog@latest
         with:
           name: safety
           reporter: github-pr-check
