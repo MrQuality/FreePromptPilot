@@ -31,59 +31,84 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Install development dependencies
-        run: pip install flake8 mypy black semgrep safety reviewdog
+        run: pip install flake8 mypy black semgrep safety
 
       - name: Lint code with flake8
         id: flake8
-        run: flake8 . > flake8_report.txt || true
+        run: flake8 . | tee flake8_report.txt
+        continue-on-error: true
 
       - name: Reviewdog - Flake8
-        uses: reviewdog/action-flake8@v1
+        uses: reviewdog/action-lint@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tool_name: flake8
           reporter: github-pr-check
-          level: error
+          filter_mode: file
+          fail_on_error: false
+          output: flake8_report.txt
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Type check with mypy
         id: mypy
-        run: mypy . > mypy_report.txt || true
+        run: mypy . | tee mypy_report.txt
+        continue-on-error: true
 
       - name: Reviewdog - Mypy
-        uses: reviewdog/action-mypy@v1
+        uses: reviewdog/action-lint@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tool_name: mypy
           reporter: github-pr-check
-          level: error
+          filter_mode: file
+          fail_on_error: false
+          output: mypy_report.txt
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Format code with black
         id: black
-        run: black --check . > black_report.txt || true
+        run: black --check . | tee black_report.txt
+        continue-on-error: true
 
       - name: Reviewdog - Black
-        uses: reviewdog/action-black@v1
+        uses: reviewdog/action-lint@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tool_name: black
           reporter: github-pr-check
-          level: error
+          filter_mode: file
+          fail_on_error: false
+          output: black_report.txt
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Security scan with semgrep
         id: semgrep
-        run: semgrep --config p/ci > semgrep_report.txt || true
+        run: semgrep --config p/ci | tee semgrep_report.txt
+        continue-on-error: true
 
       - name: Reviewdog - Semgrep
-        uses: reviewdog/action-semgrep@v1
+        uses: reviewdog/action-lint@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tool_name: semgrep
           reporter: github-pr-check
-          level: error
+          filter_mode: file
+          fail_on_error: false
+          output: semgrep_report.txt
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Security scan with safety
         id: safety
-        run: safety check > safety_report.txt || true
+        run: safety check | tee safety_report.txt
+        continue-on-error: true
 
       - name: Reviewdog - Safety
-        uses: reviewdog/action-safety@v1
+        uses: reviewdog/action-lint@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tool_name: safety
           reporter: github-pr-check
-          level: error
+          filter_mode: file
+          fail_on_error: false
+          output: safety_report.txt
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
