@@ -93,18 +93,17 @@ jobs:
         env:
           REVIEWDOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      -  name: Setup Reviewdog
+         uses: reviewdog/action-setup@v1
+         with:
+           reviewdog_version: latest
+
       - name: Security scan with safety
         id: safety
-        run: safety check | tee safety_report.txt
+        run: safety check --json > safety_report.json
         continue-on-error: true
 
       - name: Reviewdog - Safety
-        uses: reviewdog/action-run@v1
-        with:
-          name: safety
-          reporter: github-pr-check
-          filter_mode: file
-          fail_on_error: false
-          level: warning
+        run: reviewdog -f=sarif -name="safety" -reporter=github-pr-check -level=warning < safety_report.json
         env:
           REVIEWDOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
