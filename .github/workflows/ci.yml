@@ -39,15 +39,14 @@ jobs:
         continue-on-error: true
 
       - name: Reviewdog - Flake8
-        uses: reviewdog/action-actionlint@v1
+        uses: reviewdog/action-flake8@v1
         with:
-          tool_name: flake8
           reporter: github-pr-check
           filter_mode: file
           fail_on_error: false
-          output: flake8_report.txt
+          level: warning
         env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REVIEWDOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Type check with mypy
         id: mypy
@@ -55,15 +54,14 @@ jobs:
         continue-on-error: true
 
       - name: Reviewdog - Mypy
-        uses: reviewdog/action-lint@v1
+        uses: reviewdog/action-mypy@v1
         with:
-          tool_name: mypy
           reporter: github-pr-check
           filter_mode: file
           fail_on_error: false
-          output: mypy_report.txt
+          level: warning
         env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REVIEWDOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Format code with black
         id: black
@@ -71,15 +69,15 @@ jobs:
         continue-on-error: true
 
       - name: Reviewdog - Black
-        uses: reviewdog/action-lint@v1
+        uses: reviewdog/action-run@v1
         with:
-          tool_name: black
+          name: black
           reporter: github-pr-check
           filter_mode: file
           fail_on_error: false
-          output: black_report.txt
+          level: warning
         env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REVIEWDOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Security scan with semgrep
         id: semgrep
@@ -87,15 +85,14 @@ jobs:
         continue-on-error: true
 
       - name: Reviewdog - Semgrep
-        uses: reviewdog/action-lint@v1
+        uses: reviewdog/action-semgrep@v1
         with:
-          tool_name: semgrep
           reporter: github-pr-check
           filter_mode: file
           fail_on_error: false
-          output: semgrep_report.txt
+          level: warning
         env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REVIEWDOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Security scan with safety
         id: safety
@@ -103,12 +100,12 @@ jobs:
         continue-on-error: true
 
       - name: Reviewdog - Safety
-        uses: reviewdog/action-lint@v1
+        uses: reviewdog/action-run@v1
         with:
-          tool_name: safety
+          name: safety
           reporter: github-pr-check
           filter_mode: file
           fail_on_error: false
-          output: safety_report.txt
+          level: warning
         env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REVIEWDOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
