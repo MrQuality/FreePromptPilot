@@ -39,14 +39,13 @@ jobs:
         continue-on-error: true
 
       - name: Reviewdog - Flake8
-        uses: reviewdog/action-lint@v1
+        uses: reviewdog/action-actionlint@v1
         with:
           tool_name: flake8
           reporter: github-pr-check
           filter_mode: file
           fail_on_error: false
           output: flake8_report.txt
-          error_on_empty: true
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
