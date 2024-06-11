@@ -8,6 +8,5 @@ flake8
 mypy
 black
 semgrep
-safety==3.2.2
 reviewdog
 
