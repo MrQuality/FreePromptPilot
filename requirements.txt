@@ -9,4 +9,4 @@ mypy==1.4.1
 black==23.3.0
 semgrep==1.15.0
 safety==2.3.5
-reviewdog==0.15.1
+reviewdog~=0.14.0
