@@ -35,7 +35,7 @@ jobs:
         
       - name: Install dependencies
         run: |
-          pip install flake8==6.0.0 mypy==1.4.1 black==23.3.0 semgrep==1.15.0 safety==2.3.5 reviewdog~=0.16.1
+          pip install flake8==6.0.0 mypy==1.4.1 black==23.3.0 semgrep==1.15.0 safety==2.3.5 reviewdog~=0.17.5
 
       - name: Lint code with flake8
         id: flake8
@@ -96,19 +96,18 @@ jobs:
           level: warning
         env:
           REVIEWDOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      # << Temploraray removed Safety >>
-      # -  name: Setup Reviewdog
-      #    uses: reviewdog/action-setup@v1
-      #    with:
-      #      reviewdog_version: latest
 
-      # - name: Security scan with safety
-      #   id: safety
-      #   run: safety check --json > safety_report.json
-      #   continue-on-error: true
+      -  name: Setup Reviewdog
+         uses: reviewdog/action-setup@v1
+         with:
+          reviewdog_version: latest
 
-      # - name: Reviewdog - Safety
-      #   run: reviewdog -f=sarif -name="safety" -reporter=github-pr-check -level=warning < safety_report.json
-      #   env:
-      #     REVIEWDOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Security scan with safety
+        id: safety
+        run: safety check --json > safety_report.json
+        continue-on-error: true
+
+      - name: Reviewdog - Safety
+        run: reviewdog -f=sarif -name="safety" -reporter=github-pr-check -level=warning < safety_report.json
+        env:
+          REVIEWDOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
