@@ -35,7 +35,7 @@ jobs:
         
       - name: Install additional dependencies
         run: |
-          pip install flake8==6.0.0 mypy==1.4.1 black==23.3.0 semgrep==1.15.0 safety==2.3.5
+          pip install flake8==6.0.0 mypy==1.4.1 black==22.3.0 semgrep==1.20.0 safety==2.3.4
 
       - name: Lint code with flake8
         id: flake8
