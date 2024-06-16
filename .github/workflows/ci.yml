@@ -97,6 +97,11 @@ jobs:
         env:
           REVIEWDOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Install Reviewdog
+        uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
+
       - name: Security scan with safety
         id: safety
         run: safety check --json > safety_report.json
