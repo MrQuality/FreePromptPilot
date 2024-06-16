@@ -35,7 +35,7 @@ jobs:
         
       - name: Install additional dependencies
         run: |
-          pip install flake8==6.0.0 mypy==1.4.1 black==23.3.0 semgrep==1.15.0 safety==2.3.5  # Removed reviewdog here
+          pip install flake8==6.0.0 mypy==1.4.1 black==23.3.0 semgrep==1.15.0 safety==2.3.5
 
       - name: Lint code with flake8
         id: flake8
@@ -103,11 +103,6 @@ jobs:
         continue-on-error: true
 
       - name: Reviewdog - Safety
-        uses: reviewdog/action-safety@v1
-        with:
-          reporter: github-pr-check
-          filter_mode: file
-          fail_on_error: false
-          level: warning
+        run: reviewdog -f=sarif -name="safety" -reporter=github-pr-check -level=warning < safety_report.json
         env:
           REVIEWDOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
