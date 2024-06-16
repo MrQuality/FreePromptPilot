@@ -1,0 +1,42 @@
+[flake8]
+# Maximum allowed line length (aligned with black)
+max-line-length = 88
+
+# Ignore rules (E203 and W503 are ignored for compatibility with black)
+extend-ignore = E203, W503
+
+# Exclude common directories and files that should not be linted
+exclude = 
+    .git,
+    __pycache__,
+    build,
+    dist,
+    .venv,
+    .tox,
+    .mypy_cache,
+    .pytest_cache,
+    migrations,
+
+# Select specific error and warning codes to enforce
+# select = E,F,W,C
+
+# Enable plugins
+# max-complexity sets a threshold for the cyclomatic complexity of a function
+max-complexity = 10
+
+# Show the source code for each error (optional, helps in understanding errors)
+show-source = True
+
+# Format output (default format is helpful, can be customized)
+format = default
+
+# Application-specific configuration
+# per-file-ignores allows ignoring specific rules for specific files
+per-file-ignores =
+    __init__.py: F401
+
+# Enable some useful extensions (for the future)
+# docstring-convention = google
+# inline-quotes = single
+# string-quotes = single
+# docstring-style = google
