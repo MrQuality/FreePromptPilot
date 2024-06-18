@@ -1,4 +1,3 @@
-import pytest
 import torch
 from utils import get_device, vectorize_file
 

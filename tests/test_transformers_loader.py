@@ -1,5 +1,5 @@
-import pytest
 from transformers_loader import TransformersModelLoader
+
 
 def test_transformers_model_loader(cache_dir):
     loader = TransformersModelLoader()

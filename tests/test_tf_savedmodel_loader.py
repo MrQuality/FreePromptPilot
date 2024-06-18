@@ -1,6 +1,7 @@
 import pytest
 from tf_savedmodel_loader import TFSavedModelLoader
 
+
 def test_tf_savedmodel_loader(cache_dir):
     loader = TFSavedModelLoader()
     with pytest.raises(Exception):

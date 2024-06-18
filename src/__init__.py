@@ -10,4 +10,3 @@ from .tflite_loader import TFLiteModelLoader
 from .tf_savedmodel_loader import TFSavedModelLoader
 from .torch_loader import TorchModelLoader
 from .transformers_loader import TransformersModelLoader
-

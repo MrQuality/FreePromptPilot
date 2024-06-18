@@ -1,6 +1,7 @@
 import pytest
 from torch_loader import TorchModelLoader
 
+
 def test_torch_model_loader(cache_dir):
     loader = TorchModelLoader()
     with pytest.raises(Exception):

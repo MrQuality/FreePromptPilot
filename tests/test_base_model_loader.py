@@ -1,5 +1,5 @@
-import pytest
 from model_loader import BaseModelLoader
+
 
 def test_base_model_loader_methods():
     class TestLoader(BaseModelLoader):

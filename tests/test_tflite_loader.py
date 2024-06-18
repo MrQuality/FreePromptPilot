@@ -1,6 +1,7 @@
 import pytest
 from tflite_loader import TFLiteModelLoader
 
+
 def test_tflite_model_loader(cache_dir):
     loader = TFLiteModelLoader()
     with pytest.raises(Exception):
