@@ -142,4 +142,3 @@ For any questions or feedback, please reach out to:
 - **GitHub**: [MrQuality](https://github.com/MrQuality)
 
 Thank you for using FreePromptPilot! We hope it enhances your text processing and AI-driven development workflow.
-
