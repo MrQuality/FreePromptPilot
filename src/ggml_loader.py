@@ -10,3 +10,8 @@ class GGMLModelLoader(BaseModelLoader):
         # Add custom loading logic for GGML tokenizer here
         raise NotImplementedError("GGML format tokenizer loading is not yet implemented.")
 
+    def prepare_inputs(self, tokenizer, prompt):
+        raise NotImplementedError("Input preparation for GGML is not yet implemented.")
+
+    def generate(self, model, inputs):
+        raise NotImplementedError("Generation for GGML is not yet implemented.")

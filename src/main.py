@@ -1,10 +1,12 @@
 import os
 import argparse
-import pdb
-
-import torch
-from utils import get_device, vectorize_file
-from model_loader_factory import get_model_loader
+from utils import (
+    get_device,
+    vectorize_file,
+    calculate_max_new_tokens
+)
+from model_loader_factory import get_model_loader, CONFIG_MODEL_MAPPING
+from transformers import AutoConfig, AutoTokenizer
 
 
 def main():
@@ -20,38 +22,50 @@ def main():
     args = parser.parse_args()
 
     device = get_device(args.use_gpu)
+
     if not args.model_path:
         model_name = "gradientai/Llama-3-8B-Instruct-Gradient-4194k"
-        args.model_path = os.path.join(args.cache_dir, model_name.replace('/', '_'))
+    else:
+        model_name = args.model_path
 
-    model_loader = get_model_loader(args.model_path)
+    model_loader = get_model_loader(model_name)
 
     if args.local:
+        # Try to load the local model
         try:
             model = model_loader.load_model(model_name, args.cache_dir)
             tokenizer = model_loader.load_tokenizer(model_name, args.cache_dir)
-        except:
-            print(f"Local model not found or unsupported format. Downloading {model_name}...")
-            model = AutoModelForCausalLM.from_pretrained(model_name, cache_dir=args.cache_dir)
+        except Exception as e:
+            print(f"Local model not found or unsupported format. Error: {e}")
+            return
+    else:
+        # Try to download the model from Hugging Face
+        try:
+            # Determine model type based on configuration
+            config = AutoConfig.from_pretrained(model_name)
+            model_class = CONFIG_MODEL_MAPPING.get(type(config), AutoModelForCausalLM)
+            model = model_class.from_pretrained(model_name, cache_dir=args.cache_dir)
             tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=args.cache_dir)
             model.save_pretrained(args.model_path)
             tokenizer.save_pretrained(args.model_path)
-    else:
-        model = model_loader.load_model(model_name, args.cache_dir)
-        tokenizer = model_loader.load_tokenizer(model_name, args.cache_dir)
+        except Exception as download_error:
+            print(f"Failed to download model: {download_error}")
+            return
 
     model.to(device)
 
     if args.file:
         embeddings = vectorize_file(args.file)
-        # Integrate RAG logic here
-        # For simplicity, we assume the embeddings are appended to the prompt
         prompt = f"{args.user_input} {embeddings}"
     else:
         prompt = args.user_input
 
-    inputs = tokenizer(prompt, return_tensors="pt").to(device)
-    outputs = model.generate(**inputs)
+    inputs = model_loader.prepare_inputs(tokenizer, prompt)
+
+    # Calculate max_new_tokens using the function
+    max_new_tokens = calculate_max_new_tokens(prompt)
+
+    outputs = model_loader.generate(model, inputs, max_new_tokens)
     result = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
     print(result)

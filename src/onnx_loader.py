@@ -9,3 +9,10 @@ class ONNXModelLoader(BaseModelLoader):
         # Placeholder: Implement tokenizer loading if applicable
         raise NotImplementedError("Tokenizer loading for ONNX is not implemented.")
 
+    def prepare_inputs(self, tokenizer, prompt):
+        inputs = tokenizer(prompt, return_tensors="np")
+        return {key: value for key, value in inputs.items()}
+
+    def generate(self, model, inputs):
+        outputs = model.run(None, inputs)
+        return outputs

@@ -13,3 +13,6 @@ def vectorize_file(file_path):
     embeddings = model.encode(content)
     return embeddings
 
+def calculate_max_new_tokens(prompt):
+    # Calculate max_new_tokens based on the length of the input string
+    return max(20, len(prompt.split()) * 2)  # Adjust the multiplier as needed
