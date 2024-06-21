@@ -1,5 +1,5 @@
 import pytest
-from ggml_loader import GGMLModelLoader
+from src import GGMLModelLoader
 
 
 def test_ggml_model_loader():

@@ -1,4 +1,4 @@
-from model_loader import BaseModelLoader
+from src import BaseModelLoader
 
 
 def test_base_model_loader_methods():
