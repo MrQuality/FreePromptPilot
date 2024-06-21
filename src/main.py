@@ -10,14 +10,20 @@ from transformers import AutoConfig, AutoTokenizer
 
 
 def main():
-    parser = argparse.ArgumentParser(description='FreePromptPilot with Huggingface module')
+    parser = argparse.ArgumentParser(
+        description='FreePromptPilot with Huggingface module')
     parser.add_argument('user_input', type=str, help='User input text')
-    parser.add_argument('--file', type=str, help='Optional file input for RAG')
-    parser.add_argument('--use-gpu', action='store_true', help='Use GPU if available')
-    parser.add_argument('--local', action='store_true', help='Use local module if available')
-    parser.add_argument('--cache-dir', type=str, default=os.getenv('TRANSFORMERS_CACHE', os.path.expanduser(
+    parser.add_argument('--file',
+                        type=str, help='Optional file input for RAG')
+    parser.add_argument('--use-gpu', action='store_true',
+                        help='Use GPU if available')
+    parser.add_argument('--local', action='store_true',
+                        help='Use local module if available')
+    parser.add_argument('--cache-dir', type=str,
+                        default=os.getenv('TRANSFORMERS_CACHE', os.path.expanduser(
         '~/.cache/huggingface/transformers')), help='Directory to cache the model')
-    parser.add_argument('--model-path', type=str, default=None, help='Path to the model file')
+    parser.add_argument('--model-path',
+                        type=str, default=None, help='Path to the model file')
 
     args = parser.parse_args()
 
@@ -45,7 +51,8 @@ def main():
             config = AutoConfig.from_pretrained(model_name)
             model_class = CONFIG_MODEL_MAPPING.get(type(config), AutoModelForCausalLM)
             model = model_class.from_pretrained(model_name, cache_dir=args.cache_dir)
-            tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=args.cache_dir)
+            tokenizer = AutoTokenizer.from_pretrained(model_name,
+                                                      cache_dir=args.cache_dir)
             model.save_pretrained(args.model_path)
             tokenizer.save_pretrained(args.model_path)
         except Exception as download_error:

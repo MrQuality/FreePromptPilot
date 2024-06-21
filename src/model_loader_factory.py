@@ -13,7 +13,6 @@ from transformers import (
     BartConfig,
     MarianConfig
 )
-from transformers_loader import TransformersModelLoader
 from ggml_loader import GGMLModelLoader
 from onnx_loader import ONNXModelLoader
 from torch_loader import TorchModelLoader
@@ -59,7 +58,8 @@ class ModelLoaderFactory:
 
     @staticmethod
     def generate(model, inputs, max_new_tokens=50):
-        pad_token_id = model.config.eos_token_id if model.config.pad_token_id is None else model.config.pad_token_id
+        pad_token_id = model.config.eos_token_id if (
+                model.config.pad_token_id is None) else model.config.pad_token_id
         outputs = model.generate(
             **inputs,
             pad_token_id=pad_token_id,

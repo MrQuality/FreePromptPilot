@@ -1,5 +1,4 @@
 import pytest
-from model_loader_factory import get_model_loader
 from src import (get_model_loader,
                  TransformersModelLoader,
                  GGMLModelLoader,
