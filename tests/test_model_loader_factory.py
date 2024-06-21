@@ -1,11 +1,13 @@
 import pytest
 from model_loader_factory import get_model_loader
-from transformers_loader import TransformersModelLoader
-from ggml_loader import GGMLModelLoader
-from onnx_loader import ONNXModelLoader
-from torch_loader import TorchModelLoader
-from tf_savedmodel_loader import TFSavedModelLoader
-from tflite_loader import TFLiteModelLoader
+from src import (get_model_loader,
+                 TransformersModelLoader,
+                 GGMLModelLoader,
+                 ONNXModelLoader,
+                 TorchModelLoader,
+                 TFSavedModelLoader,
+                 TFLiteModelLoader
+                 )
 
 
 @pytest.mark.parametrize("file_extension, expected_loader", [
