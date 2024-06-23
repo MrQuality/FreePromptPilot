@@ -24,4 +24,5 @@ from src import (
 )
 def test_get_model_loader(file_extension, expected_loader):
     model_loader = get_model_loader(f"model{file_extension}")
+    assert isinstance(model_loader, BaseModelLoader)
     assert isinstance(model_loader, expected_loader)
