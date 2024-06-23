@@ -8,7 +8,9 @@ class TFSavedModelLoader(BaseModelLoader):
 
     def load_tokenizer(self, model_name, cache_dir):
         # Placeholder: Implement tokenizer loading if applicable
-        raise NotImplementedError("Tokenizer loading for TensorFlow SavedModel is not implemented.")
+        raise NotImplementedError(
+            "Tokenizer loading for TensorFlow SavedModel is not implemented."
+        )
 
     def prepare_inputs(self, tokenizer, prompt):
         inputs = tokenizer(prompt, return_tensors="tf")
@@ -17,7 +19,7 @@ class TFSavedModelLoader(BaseModelLoader):
     def generate(self, model, inputs):
         input_details = model.get_input_details()
         output_details = model.get_output_details()
-        model.set_tensor(input_details[0]['index'], inputs['input_ids'])
+        model.set_tensor(input_details[0]["index"], inputs["input_ids"])
         model.invoke()
-        output_data = model.get_tensor(output_details[0]['index'])
+        output_data = model.get_tensor(output_details[0]["index"])
         return output_data

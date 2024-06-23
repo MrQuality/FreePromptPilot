@@ -1,3 +1,4 @@
 def test_simple_import():
-    import utils
-    assert utils is not None
+    from src import get_device
+
+    assert get_device is not None

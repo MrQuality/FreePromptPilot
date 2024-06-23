@@ -1,4 +1,4 @@
-from transformers_loader import TransformersModelLoader
+from src import TransformersModelLoader
 
 
 def test_transformers_model_loader(cache_dir):

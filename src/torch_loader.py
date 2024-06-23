@@ -11,7 +11,9 @@ class TorchModelLoader(BaseModelLoader):
         raise NotImplementedError("Tokenizer loading for PyTorch is not implemented.")
 
     def prepare_inputs(self, tokenizer, prompt):
-        return tokenizer(prompt, return_tensors="pt").to(torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
+        return tokenizer(prompt, return_tensors="pt").to(
+            torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        )
 
     def generate(self, model, inputs):
         return model.generate(**inputs)

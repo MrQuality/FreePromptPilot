@@ -11,7 +11,7 @@ from transformers import (
     RobertaConfig,
     T5Config,
     BartConfig,
-    MarianConfig
+    MarianConfig,
 )
 from ggml_loader import GGMLModelLoader
 from onnx_loader import ONNXModelLoader
@@ -27,17 +27,17 @@ CONFIG_MODEL_MAPPING = {
     RobertaConfig: AutoModelForSequenceClassification,
     T5Config: AutoModelForSeq2SeqLM,
     BartConfig: AutoModelForSeq2SeqLM,
-    MarianConfig: AutoModelForSeq2SeqLM
+    MarianConfig: AutoModelForSeq2SeqLM,
 }
 
 # Dictionary mapping file extensions to model loader classes
 MODEL_LOADERS = {
-    '.pt': TorchModelLoader,
-    '.pth': TorchModelLoader,
-    '.onnx': ONNXModelLoader,
-    '.pb': TFSavedModelLoader,
-    '.tflite': TFLiteModelLoader,
-    '.ggml': GGMLModelLoader,
+    ".pt": TorchModelLoader,
+    ".pth": TorchModelLoader,
+    ".onnx": ONNXModelLoader,
+    ".pb": TFSavedModelLoader,
+    ".tflite": TFLiteModelLoader,
+    ".ggml": GGMLModelLoader,
 }
 
 
@@ -58,12 +58,13 @@ class ModelLoaderFactory:
 
     @staticmethod
     def generate(model, inputs, max_new_tokens=50):
-        pad_token_id = model.config.eos_token_id if (
-                model.config.pad_token_id is None) else model.config.pad_token_id
+        pad_token_id = (
+            model.config.eos_token_id
+            if (model.config.pad_token_id is None)
+            else model.config.pad_token_id
+        )
         outputs = model.generate(
-            **inputs,
-            pad_token_id=pad_token_id,
-            max_new_tokens=max_new_tokens
+            **inputs, pad_token_id=pad_token_id, max_new_tokens=max_new_tokens
         )
         return outputs
 

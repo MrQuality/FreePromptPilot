@@ -1,5 +1,5 @@
 import pytest
-from onnx_loader import ONNXModelLoader
+from src import ONNXModelLoader
 
 
 def test_onnx_model_loader(cache_dir):

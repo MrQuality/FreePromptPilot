@@ -4,7 +4,7 @@ from utils import get_device, vectorize_file
 
 def test_get_device():
     device = get_device(False)
-    assert device == torch.device('cpu')
+    assert device == torch.device("cpu")
 
 
 def test_vectorize_file(tmp_path):
