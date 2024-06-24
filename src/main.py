@@ -1,6 +1,6 @@
 import os
 import argparse
-from utils import get_device, vectorize_file, calculate_max_new_tokens
+from src.utils import get_device, vectorize_file, calculate_max_new_tokens
 from model_loader_factory import get_model_loader
 
 
