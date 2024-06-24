@@ -7,6 +7,7 @@ from src import (
     TorchModelLoader,
     TFSavedModelLoader,
     TFLiteModelLoader,
+    BaseModelLoader
 )
 
 

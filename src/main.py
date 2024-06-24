@@ -1,8 +1,7 @@
 import os
 import argparse
 from utils import get_device, vectorize_file, calculate_max_new_tokens
-from model_loader_factory import get_model_loader, CONFIG_MODEL_MAPPING
-from transformers import AutoConfig, AutoTokenizer
+from model_loader_factory import get_model_loader
 
 
 def main():
