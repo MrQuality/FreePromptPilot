@@ -1,5 +1,5 @@
-import tensorflow as tf
-from model_loader import BaseModelLoader
+import tensorflow as tf  # type: ignore
+from src.model_loader import BaseModelLoader
 
 
 class TFSavedModelLoader(BaseModelLoader):
