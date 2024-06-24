@@ -13,7 +13,6 @@ from transformers import (
     BartConfig,
     MarianConfig,
 )  # type: ignore
-from transformers_loader import TransformersModelLoader
 from ggml_loader import GGMLModelLoader
 from onnx_loader import ONNXModelLoader
 from torch_loader import TorchModelLoader
