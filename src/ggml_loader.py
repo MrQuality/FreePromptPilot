@@ -1,5 +1,5 @@
 # Placeholder for GGML model loader
-from model_loader import BaseModelLoader
+from src.model_loader import BaseModelLoader
 
 
 class GGMLModelLoader(BaseModelLoader):
