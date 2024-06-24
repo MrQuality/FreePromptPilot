@@ -1,5 +1,5 @@
-import onnxruntime as ort
-from model_loader import BaseModelLoader
+import onnxruntime as ort  # type: ignore
+from src.model_loader import BaseModelLoader  # using absolut path due to mypy error
 
 
 class ONNXModelLoader(BaseModelLoader):
