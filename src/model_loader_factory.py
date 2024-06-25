@@ -1,5 +1,5 @@
 import os
-from transformers import (
+from transformers import (  # type: ignore
     AutoConfig,
     AutoModelForCausalLM,
     AutoModelForSequenceClassification,
@@ -12,7 +12,7 @@ from transformers import (
     T5Config,
     BartConfig,
     MarianConfig,
-)  # type: ignore
+)
 from src.ggml_loader import GGMLModelLoader
 from src.onnx_loader import ONNXModelLoader
 from src.torch_loader import TorchModelLoader
