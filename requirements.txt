@@ -2,7 +2,7 @@ setuptools
 langchain
 transformers
 torch
-sentence-transformers
+sentence - transformers
 numpy
 scipy
 onnxruntime
