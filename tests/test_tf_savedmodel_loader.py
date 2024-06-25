@@ -1,5 +1,5 @@
 import pytest
-from tf_savedmodel_loader import TFSavedModelLoader
+from src import TFSavedModelLoader
 
 
 def test_tf_savedmodel_loader(cache_dir):

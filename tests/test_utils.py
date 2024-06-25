@@ -1,5 +1,5 @@
 import torch
-from utils import get_device, vectorize_file
+from src import get_device, vectorize_file
 
 
 def test_get_device():

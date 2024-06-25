@@ -1,5 +1,5 @@
 import pytest
-from torch_loader import TorchModelLoader
+from src import TorchModelLoader
 
 
 def test_torch_model_loader(cache_dir):
