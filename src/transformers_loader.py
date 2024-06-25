@@ -1,6 +1,6 @@
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from model_loader import BaseModelLoader
+from src.model_loader import BaseModelLoader
 
 
 class TransformersModelLoader(BaseModelLoader):

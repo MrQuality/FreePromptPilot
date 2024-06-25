@@ -13,11 +13,11 @@ from transformers import (
     BartConfig,
     MarianConfig,
 )  # type: ignore
-from ggml_loader import GGMLModelLoader
-from onnx_loader import ONNXModelLoader
-from torch_loader import TorchModelLoader
-from tf_savedmodel_loader import TFSavedModelLoader
-from tflite_loader import TFLiteModelLoader
+from src.ggml_loader import GGMLModelLoader
+from src.onnx_loader import ONNXModelLoader
+from src.torch_loader import TorchModelLoader
+from src.tf_savedmodel_loader import TFSavedModelLoader
+from src.tflite_loader import TFLiteModelLoader
 
 # Mapping of configuration classes to their respective model classes
 CONFIG_MODEL_MAPPING = {

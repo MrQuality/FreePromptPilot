@@ -1,5 +1,5 @@
 import torch
-from model_loader import BaseModelLoader
+from src.model_loader import BaseModelLoader
 
 
 class TorchModelLoader(BaseModelLoader):

@@ -1,7 +1,7 @@
 import os
 import argparse
 from src.utils import get_device, vectorize_file, calculate_max_new_tokens
-from model_loader_factory import get_model_loader
+from src.model_loader_factory import get_model_loader
 
 
 def main():
