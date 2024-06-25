@@ -17,7 +17,7 @@ jobs:
           fetch-depth: 0
 
       - name: fetch all history
-        run: git fetch --prune --unshallow
+        run: git fetch --prune
 
       - name: Set up Python
         uses: actions/setup-python@v5
