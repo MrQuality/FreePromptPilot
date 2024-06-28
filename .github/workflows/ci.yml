@@ -95,6 +95,7 @@ jobs:
       - name: Reviewdog - Semgrep
         uses: g-wilson/action-semgrep@v1
         with:
+          working-directory: .
           reporter: github-pr-check
           filter_mode: file
           fail_on_error: false
