@@ -12,6 +12,8 @@ setup(
         "sentence-transformers",
         "numpy",
         "scipy",
+        "onnxruntime",
+        "tensorflow"
     ],
     entry_points={
         "console_scripts": [
