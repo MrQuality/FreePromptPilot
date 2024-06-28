@@ -1,6 +1,8 @@
 import torch
 from sentence_transformers import SentenceTransformer
 
+MAX_TOKEN_RATIO: int = 2
+
 
 def get_device(use_gpu):
     if use_gpu and torch.cuda.is_available():
@@ -18,4 +20,5 @@ def vectorize_file(file_path):
 
 def calculate_max_new_tokens(prompt):
     # Calculate max_new_tokens based on the length of the input string
-    return max(20, len(prompt.split()) * 2)  # Adjust the multiplier as needed
+    return max(20,
+               len(prompt.split()) * MAX_TOKEN_RATIO)  # Adjust the multiplier as needed
