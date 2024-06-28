@@ -19,7 +19,7 @@ jobs:
 
       - name: fetch all history and tags
         run: |
-          git fetch --prune
+          git fetch --prune --unshallow
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
       - name: Set up Python
