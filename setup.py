@@ -13,7 +13,8 @@ setup(
         "numpy",
         "scipy",
         "onnxruntime",
-        "tensorflow"
+        "tensorflow",
+        "pytest"
     ],
     entry_points={
         "console_scripts": [
