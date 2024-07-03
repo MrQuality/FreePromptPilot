@@ -65,7 +65,7 @@ rules:
 
   # Code style checks
   - id: python-long-lines
-    pattern: /.{81,}/
+    pattern: /(.{81,})/
     message: "Line exceeds 80 characters."
     severity: WARNING
     languages: [python]
