@@ -141,4 +141,4 @@ For any questions or feedback, please reach out to:
 - **Email**: mrnirrozen+fpp@gmail.com
 - **GitHub**: [MrQuality](https://github.com/MrQuality)
 
-Thank you for using FreePromptPilot (FPP) We hope it enhances your text processing and AI-driven development workflow.
+Thank you for using FreePromptPilot (FPP) We hope it enhances your text processing and AI driven development workflow.
