@@ -1,6 +1,10 @@
+setuptools
 langchain
 transformers
 torch
 sentence-transformers
 numpy
 scipy
+onnxruntime
+tensorflow
+pytest

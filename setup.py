@@ -1,22 +1,24 @@
-from setuptools import setup, find_packages
+from setuptools import setup, find_packages  # type: ignore
 
 setup(
-    name='FreePromptPilot',
-    version='0.1.0',
-    packages=find_packages(where='src'),
-    package_dir={'': 'src'},
+    name="FreePromptPilot",
+    version="0.1.2",
+    packages=find_packages(where="src"),
+    package_dir={"": "src"},
     install_requires=[
-        'langchain',
-        'transformers',
-        'torch',
-        'sentence-transformers',
-        'numpy',
-        'scipy'
+        "langchain",
+        "transformers",
+        "torch",
+        "sentence-transformers",
+        "numpy",
+        "scipy",
+        "onnxruntime",
+        "tensorflow",
+        "pytest"
     ],
     entry_points={
-        'console_scripts': [
-            'freepromptpilot=main:main',
+        "console_scripts": [
+            "freepromptpilot=main:main",
         ],
     },
 )
-
