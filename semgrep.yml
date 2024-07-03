@@ -1,0 +1,153 @@
+rules:
+  # General Python rules
+  - id: python-use-fstring
+    patterns:
+      - pattern: '... % ...'
+      - pattern: '... .format(...)'
+    message: "Use f-strings for better readability and performance."
+    severity: WARNING
+    languages: [python]
+    paths:
+      include:
+        - "*.py"
+  
+  - id: python-debug-statements
+    pattern: 'print(...)'
+    message: "Remove print statements, use logging instead."
+    severity: WARNING
+    languages: [python]
+    paths:
+      include:
+        - "*.py"
+
+  # Security checks
+  - id: python-eval
+    pattern: 'eval(...)'
+    message: "Avoid using eval(). It can be a security risk."
+    severity: ERROR
+    languages: [python]
+    paths:
+      include:
+        - "*.py"
+  
+  - id: python-exec
+    pattern: 'exec(...)'
+    message: "Avoid using exec(). It can be a security risk."
+    severity: ERROR
+    languages: [python]
+    paths:
+      include:
+        - "*.py"
+
+  - id: python-subprocess-shell-true
+    pattern: |
+      subprocess.Popen(..., shell=True)
+      subprocess.call(..., shell=True)
+      subprocess.run(..., shell=True)
+      subprocess.check_output(..., shell=True)
+    message: "Avoid using shell=True in subprocess calls."
+    severity: ERROR
+    languages: [python]
+    paths:
+      include:
+        - "*.py"
+
+  - id: python-insecure-deserialization
+    pattern: |
+      pickle.load(...)
+      pickle.loads(...)
+    message: "Avoid using pickle for deserialization. Use safer alternatives like json."
+    severity: ERROR
+    languages: [python]
+    paths:
+      include:
+        - "*.py"
+
+  # Code style checks
+  - id: python-long-lines
+    pattern: /.{81,}/
+    message: "Line exceeds 80 characters."
+    severity: WARNING
+    languages: [python]
+    paths:
+      include:
+        - "*.py"
+
+  - id: python-mutable-default-argument
+    pattern: def $FUNC(..., $ARG=[], ...): ...
+    message: "Avoid using mutable default arguments in functions."
+    severity: ERROR
+    languages: [python]
+    paths:
+      include:
+        - "*.py"
+
+  # Type checking and annotations
+  - id: python-missing-type-annotations
+    pattern-either:
+      - pattern: def $FUNC(...): ...
+      - pattern: def $FUNC($PARAMS): ...
+    message: "Add type annotations to functions."
+    severity: INFO
+    languages: [python]
+    paths:
+      include:
+        - "*.py"
+  
+  # Documentation and comments
+  - id: python-missing-docstrings
+    pattern: def $FUNC(...): ...
+    message: "Add docstrings to functions."
+    severity: INFO
+    languages: [python]
+    paths:
+      include:
+        - "*.py"
+  
+  # Project-specific rules
+  - id: no-direct-main-import
+    pattern: import main
+    message: "Avoid direct imports from main.py. Use relative imports."
+    severity: WARNING
+    languages: [python]
+    paths:
+      include:
+        - "*.py"
+  
+  - id: enforce-model-loader-factory-imports
+    pattern: |
+      from model_loader_factory import $MODULE
+    message: "Ensure correct imports from model_loader_factory.py"
+    severity: INFO
+    languages: [python]
+    paths:
+      include:
+        - "model_loader_factory.py"
+  
+  - id: avoid-wildcard-imports
+    pattern: from $MODULE import *
+    message: "Avoid wildcard imports. Import only necessary components."
+    severity: WARNING
+    languages: [python]
+    paths:
+      include:
+        - "*.py"
+
+# Global config
+config:
+  rules:
+    - id: python
+    - id: security
+    - id: code_style
+    - id: type_checking
+    - id: documentation
+    - id: project_specific
+  paths:
+    include:
+      - "*.py"
+    exclude:
+      - "tests/"
+      - "docs/"
+      - "venv/"
+      - "*.pyc"
+      - "__pycache__/"
